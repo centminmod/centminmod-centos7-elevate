@@ -10,7 +10,7 @@ reboot
 # backup pure-ftpd files
 mkdir -p /root/tools/pureftpd
 cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd/pureftpd.passwd
-cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd//pureftpd.pdb
+cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd/pureftpd.pdb
 yum install -y http://repo.almalinux.org/elevate/elevate-release-latest-el$(rpm --eval %rhel).noarch.rpm
 yum install -y leapp-upgrade leapp-data-almalinux
 leapp preupgrade
@@ -186,7 +186,7 @@ fi
 
 mkdir -p /root/tools/pureftpd
 \cp -af /root/tools/pureftpd/pureftpd.passwd /etc/pure-ftpd/pureftpd.passwd
-\cp -af /root/tools/pureftpd//pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
+\cp -af /root/tools/pureftpd/pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
 chmod 0600 /etc/pure-ftpd/pureftpd.passwd
 pure-pw mkdb
 
