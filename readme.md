@@ -1,4 +1,4 @@
-Centmin Mod based CentOS 7 in-place upgrade to AlmaLinux 8 via AlmaLinux Elevate. Do not use on production live servers. This is just alpha testing. Note, EL8+ memory requirements are higher with recommended 4GB memory + 4GB swap disk for EL8+.
+Centmin Mod based CentOS 7 in-place upgrade to [AlmaLinux 8 via AlmaLinux Elevate](https://wiki.almalinux.org/elevate/ELevating-CentOS7-to-AlmaLinux-9.html#migrate-centos-7-to-almalinux-8). Do not use on production live servers. This is just alpha testing. Note, EL8+ memory requirements are higher with recommended 4GB memory + 4GB swap disk for EL8+.
 
 # Part 1 - Install AlmaLinux Elevate & Reboot Server
 
