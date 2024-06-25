@@ -5,6 +5,7 @@ Centmin Mod based CentOS 7 in-place upgrade to [AlmaLinux 8 via AlmaLinux Elevat
 On Centmin Mod CentOS 7 installed server run the following commands.
 
 ```
+cmupdate
 yum update -y
 reboot
 # backup pure-ftpd files
