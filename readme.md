@@ -99,6 +99,7 @@ cmupdate
 ./centmin-option-4.sh
 
 # create a mariadb 10.4 el8/el9 reinstall
+# install matching mariadb 10.4 version to centos 7 for compatibility first
 MDB_MIRROR_BASEURL='https://mirror.rackspace.com/mariadb/yum'
 MDB_REPOMD_URL="${MDB_MIRROR_BASEURL}/${MDB_REPO_DIR}/repodata/repomd.xml"
 # fallback check of repomd.xml
