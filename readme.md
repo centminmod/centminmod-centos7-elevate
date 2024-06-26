@@ -258,6 +258,98 @@ CentOS 7 to AlmaLinux 8 via AlmaLinux Elevate is work in progress so not 100% te
 # Centmin Mod LEMP Stack On AlmaLinux 8 Elevated
 
 ```
+cat /etc/redhat-release 
+AlmaLinux release 8.10 (Cerulean Leopard)
+```
+```
+cat /etc/os-release 
+NAME="AlmaLinux"
+VERSION="8.10 (Cerulean Leopard)"
+ID="almalinux"
+ID_LIKE="rhel centos fedora"
+VERSION_ID="8.10"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="AlmaLinux 8.10 (Cerulean Leopard)"
+ANSI_COLOR="0;34"
+LOGO="fedora-logo-icon"
+CPE_NAME="cpe:/o:almalinux:almalinux:8::baseos"
+HOME_URL="https://almalinux.org/"
+DOCUMENTATION_URL="https://wiki.almalinux.org/"
+BUG_REPORT_URL="https://bugs.almalinux.org/"
+
+ALMALINUX_MANTISBT_PROJECT="AlmaLinux-8"
+ALMALINUX_MANTISBT_PROJECT_VERSION="8.10"
+REDHAT_SUPPORT_PRODUCT="AlmaLinux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.10"
+SUPPORT_END=2029-06-01
+```
+
+```
+yum repolist all
+repo id                                   repo name                                                                                      status
+appstream                                 AlmaLinux 8 - AppStream                                                                        enabled
+appstream-debuginfo                       AlmaLinux 8 - AppStream debuginfo                                                              disabled
+appstream-source                          AlmaLinux 8 - AppStream Source                                                                 disabled
+backports-rsync                           AlmaLinux 8 Backports - rsync                                                                  enabled
+baseos                                    AlmaLinux 8 - BaseOS                                                                           enabled
+baseos-debuginfo                          AlmaLinux 8 - BaseOS debuginfo                                                                 disabled
+baseos-source                             AlmaLinux 8 - BaseOS Source                                                                    disabled
+epel                                      Extra Packages for Enterprise Linux 8 - x86_64                                                 enabled
+epel-debuginfo                            Extra Packages for Enterprise Linux 8 - x86_64 - Debug                                         disabled
+epel-modular                              Extra Packages for Enterprise Linux Modular 8 - x86_64 - RETIRED                               disabled
+epel-modular-debuginfo                    Extra Packages for Enterprise Linux Modular 8 - x86_64 - Debug - RETIRED                       disabled
+epel-modular-source                       Extra Packages for Enterprise Linux Modular 8 - x86_64 - Source - RETIRED                      disabled
+epel-source                               Extra Packages for Enterprise Linux 8 - x86_64 - Source                                        disabled
+epel-testing                              Extra Packages for Enterprise Linux 8 - Testing - x86_64                                       disabled
+epel-testing-debuginfo                    Extra Packages for Enterprise Linux 8 - Testing - x86_64 - Debug                               disabled
+epel-testing-modular                      Extra Packages for Enterprise Linux Modular 8 - Testing - x86_64 - RETIRED                     disabled
+epel-testing-modular-debuginfo            Extra Packages for Enterprise Linux Modular 8 - Testing - x86_64 - Debug - RETIRED             disabled
+epel-testing-modular-source               Extra Packages for Enterprise Linux Modular 8 - Testing - x86_64 - Source - RETIRED            disabled
+epel-testing-source                       Extra Packages for Enterprise Linux 8 - Testing - x86_64 - Source                              disabled
+extras                                    AlmaLinux 8 - Extras                                                                           enabled
+extras-debuginfo                          AlmaLinux 8 - Extras debuginfo                                                                 disabled
+extras-source                             AlmaLinux 8 - Extras Source                                                                    disabled
+ha                                        AlmaLinux 8 - HighAvailability                                                                 disabled
+ha-debuginfo                              AlmaLinux 8 - HighAvailability debuginfo                                                       disabled
+ha-source                                 AlmaLinux 8 - HighAvailability Source                                                          disabled
+mariadb                                   MariaDB                                                                                        enabled
+nfv                                       AlmaLinux 8 - Real Time for NFV                                                                disabled
+nfv-debuginfo                             AlmaLinux 8 - Real Time for NFV Debuginfo                                                      disabled
+nfv-source                                AlmaLinux 8 - Real Time for NFV Sources                                                        disabled
+plus                                      AlmaLinux 8 - Plus                                                                             disabled
+plus-debuginfo                            AlmaLinux 8 - Plus debuginfo                                                                   disabled
+plus-source                               AlmaLinux 8 - Plus Source                                                                      disabled
+powertools                                AlmaLinux 8 - PowerTools                                                                       enabled
+powertools-debuginfo                      AlmaLinux 8 - PowerTools debuginfo                                                             disabled
+powertools-source                         AlmaLinux 8 - PowerTools Source                                                                disabled
+prel-release-noarch                       Percona Release release/noarch YUM repository                                                  enabled
+remi                                      Remi's RPM repository for Enterprise Linux 8 - x86_64                                          disabled
+remi-debuginfo                            Remi's RPM repository for Enterprise Linux 8 - x86_64 - debuginfo                              disabled
+remi-modular                              Remi's Modular repository for Enterprise Linux 8 - x86_64                                      enabled
+remi-modular-debuginfo                    Remi's Modular repository for Enterprise Linux 8 - x86_64 - debuginfo                          disabled
+remi-modular-test                         Remi's Modular testing repository for Enterprise Linux 8 - x86_64                              disabled
+remi-modular-test-debuginfo               Remi's Modular testing repository for Enterprise Linux 8 - x86_64 - debuginfo                  disabled
+remi-safe                                 Safe Remi's RPM repository for Enterprise Linux 8 - x86_64                                     disabled
+remi-safe-debuginfo                       Remi's RPM repository for Enterprise Linux 8 - x86_64 - debuginfo                              disabled
+remi-test                                 Remi's test RPM repository for Enterprise Linux 8 - x86_64                                     disabled
+remi-test-debuginfo                       Remi's test RPM repository for Enterprise Linux 8 - x86_64 - debuginfo                         disabled
+resilientstorage                          AlmaLinux 8 - ResilientStorage                                                                 disabled
+resilientstorage-debuginfo                AlmaLinux 8 - ResilientStorage debuginfo                                                       disabled
+resilientstorage-source                   AlmaLinux 8 - ResilientStorage Source                                                          disabled
+rt                                        AlmaLinux 8 - Real Time                                                                        disabled
+rt-debuginfo                              AlmaLinux 8 - Real Time Debuginfo                                                              disabled
+rt-source                                 AlmaLinux 8 - Real Time Sources                                                                disabled
+sap                                       AlmaLinux 8 - SAP                                                                              disabled
+sap-debuginfo                             AlmaLinux 8 - SAP Debuginfo                                                                    disabled
+sap-source                                AlmaLinux 8 - SAP Sources                                                                      disabled
+saphana                                   AlmaLinux 8 - SAP HANA                                                                         disabled
+saphana-debuginfo                         AlmaLinux 8 - SAP HANA Debuginfo                                                               disabled
+saphana-source                            AlmaLinux 8 - SAP HANA Sources                                                                 disabled
+tools-release-sources                     Percona Tools release/sources YUM repository                                                   disabled
+tools-release-x86_64                      Percona Tools release/x86_64 YUM repository                                                    enabled
+```
+
+```
 nginx -V
 nginx version: nginx/1.27.0 (250624-162622-almalinux8-kvm-b8438a6)
 built by gcc 13.2.1 20231205 (Red Hat 13.2.1-6) (GCC) 
