@@ -254,6 +254,8 @@ yum -y update --disableplugin=priorities --setopt=deltarpm=0 --enablerepo=remi
 
 CentOS 7 to AlmaLinux 8 via AlmaLinux Elevate is work in progress so not 100% tested right now.
 
+# Centmin Mod LEMP Stack On AlmaLinux 8 Elevated
+
 ```
 nginx -V
 nginx version: nginx/1.27.0 (250624-162622-almalinux8-kvm-b8438a6)
