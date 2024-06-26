@@ -321,6 +321,11 @@ Please send bug reports and questions to <bug-wget@gnu.org>
 ```
 
 ```
+memcached -V
+memcached 1.6.22
+```
+
+```
 redis-cli info server
 # Server
 redis_version:7.2.5
