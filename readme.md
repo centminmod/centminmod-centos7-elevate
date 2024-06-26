@@ -37,7 +37,7 @@ leapp preupgrade
 # inspect /var/log/leapp/answerfile
 cat /var/log/leapp/answerfile
 leapp answer --section remove_pam_pkcs11_module_check.confirm=True
-yum remove libwebp7 cmake3 bash-completion -y
+yum -y remove libwebp7 cmake3 bash-completion
 leapp upgrade
 echo "rebooting server..."
 reboot
@@ -90,6 +90,7 @@ echo "1" > /etc/centminmod/email-primary.ini
 echo "2" > /etc/centminmod/email-secondary.ini
 # reinstall pcre
 /usr/local/src/centminmod/addons/wget.sh pcre
+# reinstall custom wget and any centmin mod configured auto applied and installed settings/packages
 echo 24 | /usr/local/src/centminmod/centmin.sh
 
 # reinstall Nginx
