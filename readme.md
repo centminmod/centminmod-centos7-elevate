@@ -8,10 +8,16 @@ On Centmin Mod CentOS 7 installed server run the following commands.
 cmupdate
 yum update -y
 reboot
+
 # backup pure-ftpd files
 mkdir -p /root/tools/pureftpd
 cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd/pureftpd.passwd
 cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd/pureftpd.pdb
+
+# remove versionlocks
+versionlock_pkgs=$(yum -q versionlock list | awk -F  ':' '/el7/ {print $2}' | xargs | sed -e 's|\.el7\.remi||g' -e 's|\.\*||g')
+yum versionlock delete "$versionlock_pkgs"
+
 yum install -y http://repo.almalinux.org/elevate/elevate-release-latest-el$(rpm --eval %rhel).noarch.rpm
 yum install -y leapp-upgrade leapp-data-almalinux
 leapp preupgrade
@@ -145,6 +151,13 @@ yum -y module disable composer
 yum -y module reset redis
 yum -y module enable redis:remi-7.2
 
+# Percona YUM repo resetup
+rm -rf /etc/yum.repos.d/percona-*
+yum -y reinstall https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+percona-release show
+percona-release disable all
+percona-release enable tools
+
 # re-install redis server
 /usr/local/src/centminmod/addons/redis-server-install.sh install
 redis-cli info server
@@ -203,6 +216,9 @@ systemctl daemon-reload
 systemctl restart pure-ftpd
 systemctl enable pure-ftpd
 systemctl status pure-ftpd --no-pager
+
+# remove left over el7 and elevate/leapp packages
+rpm -e --nodeps $(rpm -qa | egrep 'el7|elevate|leapp' | sort |xargs)
 ```
 
 CentOS 7 to AlmaLinux 8 via AlmaLinux Elevate is work in progress so not 100% tested right now.
@@ -328,10 +344,94 @@ Uptime:                 16 min 45 sec
 Threads: 3  Questions: 5  Slow queries: 0  Opens: 20  Flush tables: 1  Open tables: 13  Queries per second avg: 0.004
 ```
 
-# EL7 Left Over Packages
+# EL7 & Elevate Left Over Packages
+
+EL7 & Elevate packages
 
 ```
-rpm -qa | grep el7 | sort
+rpm -qa | egrep 'el7|elevate|leapp' | sort
+centmin-libatomic_ops-7.6.12-1.el7.x86_64
+centos-release-scl-2-3.el7.centos.noarch
+centos-release-scl-rh-2-3.el7.centos.noarch
+devtoolset-11-annobin-docs-10.38-1.el7.noarch
+devtoolset-11-annobin-plugin-gcc-10.38-1.el7.x86_64
+devtoolset-11-binutils-2.36.1-1.el7.2.x86_64
+devtoolset-11-binutils-devel-2.36.1-1.el7.2.x86_64
+devtoolset-11-dwz-0.14-2.el7.x86_64
+devtoolset-11-elfutils-0.185-2.el7.x86_64
+devtoolset-11-elfutils-debuginfod-client-0.185-2.el7.x86_64
+devtoolset-11-elfutils-debuginfod-client-devel-0.185-2.el7.x86_64
+devtoolset-11-elfutils-devel-0.185-2.el7.x86_64
+devtoolset-11-elfutils-libelf-0.185-2.el7.x86_64
+devtoolset-11-elfutils-libelf-devel-0.185-2.el7.x86_64
+devtoolset-11-elfutils-libs-0.185-2.el7.x86_64
+devtoolset-11-gcc-11.2.1-9.1.el7.x86_64
+devtoolset-11-gcc-c++-11.2.1-9.1.el7.x86_64
+devtoolset-11-libasan-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-libatomic-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-libgccjit-11.2.1-9.1.el7.x86_64
+devtoolset-11-libgccjit-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-libgccjit-docs-11.2.1-9.1.el7.x86_64
+devtoolset-11-libitm-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-liblsan-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-libquadmath-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-libstdc++-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-libtsan-devel-11.2.1-9.1.el7.x86_64
+devtoolset-11-ltrace-0.7.91-1.el7.x86_64
+devtoolset-11-make-4.3-1.el7.x86_64
+devtoolset-11-make-devel-4.3-1.el7.x86_64
+devtoolset-11-memstomp-0.1.5-6.el7.x86_64
+devtoolset-11-runtime-11.1-2.el7.x86_64
+devtoolset-11-strace-5.13-3.3.el7.x86_64
+devtoolset-7-binutils-2.28-11.el7.x86_64
+devtoolset-7-gcc-7.3.1-5.16.el7.x86_64
+devtoolset-7-gcc-c++-7.3.1-5.16.el7.x86_64
+devtoolset-7-libstdc++-devel-7.3.1-5.16.el7.x86_64
+devtoolset-7-runtime-7.1-4.el7.x86_64
+elevate-release-1.0-2.el7.noarch
+kernel-3.10.0-1160.119.1.el7.x86_64
+kernel-3.10.0-1160.80.1.el7.x86_64
+leapp-0.14.0-1.el7.noarch
+leapp-data-almalinux-0.2-5.el7.noarch
+leapp-deps-el8-5.0.8-100.202203181036Z.249925a3.master.el8.noarch
+leapp-repository-deps-el8-5.0.8-100.202203181036Z.249925a3.master.el8.noarch
+leapp-upgrade-el7toel8-0.16.0-6.el7.elevate.20.noarch
+libicu62-62.2-1.el7.remi.x86_64
+libicu73-73.2-1.el7.remi.x86_64
+oniguruma5php-6.9.9-1.el7.remi.x86_64
+oniguruma5php-devel-6.9.9-1.el7.remi.x86_64
+python2-leapp-0.14.0-1.el7.noarch
+rpmforge-release-0.5.3-1.el7.rf.x86_64
+yum-plugin-priorities-1.1.31-54.el7_8.noarch
+```
+
+Remove these packages & verify their removal
+
+```
+rpm -e --nodeps $(rpm -qa | egrep 'el7|elevate|leapp' | sort |xargs)
+rpm -qa | egrep 'el7|elevate|leapp' | sort
+```
+
+Elevate & Leapp only
+
+```
+rpm -qa | grep elevate
+leapp-upgrade-el7toel8-0.16.0-6.el7.elevate.20.noarch
+elevate-release-1.0-2.el7.noarch
+
+rpm -qa | grep leapp
+leapp-upgrade-el7toel8-0.16.0-6.el7.elevate.20.noarch
+leapp-data-almalinux-0.2-5.el7.noarch
+python2-leapp-0.14.0-1.el7.noarch
+leapp-deps-el8-5.0.8-100.202203181036Z.249925a3.master.el8.noarch
+leapp-0.14.0-1.el7.noarch
+leapp-repository-deps-el8-5.0.8-100.202203181036Z.249925a3.master.el8.noarch
+```
+
+EL7 only
+
+```
+rpm -qa | egrep 'el7|elevate|leapp' | sort
 centmin-libatomic_ops-7.6.12-1.el7.x86_64
 centos-release-scl-2-3.el7.centos.noarch
 centos-release-scl-rh-2-3.el7.centos.noarch
