@@ -1,4 +1,9 @@
-Centmin Mod based CentOS 7 in-place upgrade to [AlmaLinux 8 via AlmaLinux Elevate](https://wiki.almalinux.org/elevate/ELevating-CentOS7-to-AlmaLinux-9.html#migrate-centos-7-to-almalinux-8). Do not use on production live servers. This is just alpha testing. Note, EL8+ memory requirements are higher with recommended 4GB memory + 4GB swap disk for EL8+.
+Centmin Mod based CentOS 7 in-place migration upgrade to [AlmaLinux 8 via AlmaLinux Elevate](https://wiki.almalinux.org/elevate/ELevating-CentOS7-to-AlmaLinux-9.html#migrate-centos-7-to-almalinux-8). Do not use on production live servers. Test on a test server first. This is just alpha testing. 
+
+**Notes:**
+
+1. EL8+ memory requirements are higher with recommended 4GB memory + 4GB swap disk for EL8+. So do not attempt CentOS 7 in-place migration upgrade to AlmaLinux 8 if you have less than 4GB memory + 4GB swap disk.
+2. There are 3 parts to the CentOS 7 in-place migration upgrade outlined below.
 
 # Part 1 - Install AlmaLinux Elevate & Reboot Server
 
