@@ -12,7 +12,7 @@ Centmin Mod based CentOS 7 in-place migration upgrade to [AlmaLinux 8 via AlmaLi
     Swap:          4095           4        4091
     Total:         7760         770        5069
    ```
-2. There are 3 parts to the CentOS 7 in-place migration upgrade outlined below.
+2. There are 3 parts to the CentOS 7 in-place migration upgrade outlined below. Please do a full data backup for your Nginx vhost sites + MariaDB MySQL databases before attempting the below in-place migration steps to AlmaLinux 8.
 
 # Part 1 - Install AlmaLinux Elevate & Reboot Server
 
