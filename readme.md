@@ -52,6 +52,8 @@ echo "rebooting server..."
 reboot
 ```
 
+An example of the output from `leapp upgrade` and reboot process console output can be seen [here](https://github.com/centminmod/centminmod-centos7-elevate/blob/master/el7-el8-leapp-upgrade-console.md)
+
 # Part 2 - Prep AlmaLinux 8
 
 ```
