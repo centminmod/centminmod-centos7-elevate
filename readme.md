@@ -3,6 +3,15 @@ Centmin Mod based CentOS 7 in-place migration upgrade to [AlmaLinux 8 via AlmaLi
 **Notes:**
 
 1. EL8+ memory requirements are higher with recommended 4GB memory + 4GB swap disk for EL8+. So do not attempt CentOS 7 in-place migration upgrade to AlmaLinux 8 if you have less than 4GB memory + 4GB swap disk.
+   ```
+    free -mlt
+                  total        used        free      shared  buff/cache   available
+    Mem:           3664         766         977           2        1919        2615
+    Low:           3664        2686         977
+    High:             0           0           0
+    Swap:          4095           4        4091
+    Total:         7760         770        5069
+   ```
 2. There are 3 parts to the CentOS 7 in-place migration upgrade outlined below.
 
 # Part 1 - Install AlmaLinux Elevate & Reboot Server
