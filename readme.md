@@ -247,6 +247,7 @@ systemctl status pure-ftpd --no-pager
 
 # remove left over el7 and elevate/leapp packages
 rpm -e --nodeps $(rpm -qa | egrep 'el7|elevate|leapp' | sort |xargs)
+sudo rm -rf /root/tmp_leapp_py3
 
 # yum update
 yum -y update --disableplugin=priorities --setopt=deltarpm=0 --enablerepo=remi
