@@ -9,19 +9,27 @@ Centmin Mod based CentOS 7 in-place migration upgrade to [AlmaLinux 8 via AlmaLi
 
 On Centmin Mod CentOS 7 installed server run the following commands.
 
+
+## Update Centmin Mod System
+
+Rebooting server is necessary - especially if you have yum package updates that require a reboot i.e. Kernel updates.
+
 ```
 cmupdate
 yum update -y
 reboot
+```
 
+## Install and prep Almalinux Elevate
+
+```
 # backup pure-ftpd files
 mkdir -p /root/tools/pureftpd
 cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd/pureftpd.passwd
 cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd/pureftpd.pdb
 
 # remove versionlocks
-versionlock_pkgs=$(yum -q versionlock list | awk -F  ':' '/el7/ {print $2}' | xargs | sed -e 's|\.el7\.remi||g' -e 's|\.\*||g')
-yum versionlock delete "$versionlock_pkgs"
+yum versionlock delete libc-client uw-imap-devel ImageMagick6 ImageMagick6-devel ImageMagick6-c++ ImageMagick6-c++-devel ImageMagick6-libs LibRaw
 
 yum install -y http://repo.almalinux.org/elevate/elevate-release-latest-el$(rpm --eval %rhel).noarch.rpm
 yum install -y leapp-upgrade leapp-data-almalinux
