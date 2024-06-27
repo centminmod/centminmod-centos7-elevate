@@ -281,6 +281,7 @@ rpm -e --nodeps $(rpm -qa | egrep 'el7|elevate|leapp' | sort |xargs)
 sudo rm -rf /root/tmp_leapp_py3
 sed -i '/exclude=/d' /etc/yum.conf
 sed -i '/exclude=/d' /etc/dnf/dnf.conf
+rm -rf /opt/rh/devtoolset*
 
 # yum update
 yum -y update --disableplugin=priorities --setopt=deltarpm=0 --enablerepo=remi
