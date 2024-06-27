@@ -206,6 +206,8 @@ yum -y reinstall ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-d
 
 # re-install memcached server
 ./centmin-option-10.sh
+systemctl restart memcached
+chkconfig memcached on
 
 # create a pure-ftpd el8/el9 reinstall
 yum -y reinstall pure-ftpd
