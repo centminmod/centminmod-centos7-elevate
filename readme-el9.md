@@ -110,6 +110,8 @@ chmod +x centmin-option-4.sh centmin-option-5.sh centmin-option-10.sh centmin-op
 
 # reinstall Nginx
 yum -y install GeoIP GeoIP-devel bash-completion jemalloc-devel --enablerepo=remi
+/usr/local/src/centminmod/tools/geoipdb-update.sh
+/usr/local/src/centminmod/tools/geoip2db-update.sh
 cmupdate
 ./centmin-option-4.sh
 
