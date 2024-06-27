@@ -34,6 +34,7 @@ reboot
 ```
 # backup pure-ftpd files
 mkdir -p /root/tools/pureftpd
+cp -a /etc/pure-ftpd/pure-ftpd.conf /root/tools/pureftpd/pure-ftpd.conf
 cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd/pureftpd.passwd
 cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd/pureftpd.pdb
 
@@ -218,6 +219,14 @@ chkconfig memcached on
 # create a pure-ftpd el8/el9 reinstall
 yum -y reinstall pure-ftpd
 cp -a /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf-old-el7
+
+mkdir -p /root/tools/pureftpd
+\cp -af /root/tools/pureftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
+\cp -af /root/tools/pureftpd/pureftpd.passwd /etc/pure-ftpd/pureftpd.passwd
+\cp -af /root/tools/pureftpd/pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
+chmod 0600 /etc/pure-ftpd/pureftpd.passwd
+pure-pw mkdb
+
 sed -i '/UseFtpUsers/d' /etc/pure-ftpd/pure-ftpd.conf
 
 sed -i 's/# UnixAuthentication  /UnixAuthentication  /' /etc/pure-ftpd/pure-ftpd.conf
@@ -239,12 +248,6 @@ if [[ "$(grep 'TLSCipherSuite' /etc/pure-ftpd/pure-ftpd.conf | grep -o HIGH)" !=
   # echo 'TLSCipherSuite           HIGH:MEDIUM:+TLSv1:!SSLv2:!SSLv3' >> /etc/pure-ftpd/pure-ftpd.conf
   sed -i 's|# TLSCipherSuite .*|TLSCipherSuite               HIGH|' /etc/pure-ftpd/pure-ftpd.conf
 fi
-
-mkdir -p /root/tools/pureftpd
-\cp -af /root/tools/pureftpd/pureftpd.passwd /etc/pure-ftpd/pureftpd.passwd
-\cp -af /root/tools/pureftpd/pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
-chmod 0600 /etc/pure-ftpd/pureftpd.passwd
-pure-pw mkdb
 
 mkdir -p /etc/ssl/private
 # time openssl dhparam -out /etc/ssl/private/pure-ftpd-dhparams.pem 2048

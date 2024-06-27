@@ -34,6 +34,7 @@ reboot
 ```
 # backup pure-ftpd files
 mkdir -p /root/tools/pureftpd-el8
+cp -a /etc/pure-ftpd/pure-ftpd.conf /root/tools/pureftpd-el8/pure-ftpd.conf
 cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd-el8/pureftpd.passwd
 cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd-el8/pureftpd.pdb
 
@@ -226,12 +227,36 @@ systemctl restart memcached
 chkconfig memcached on
 
 # create a pure-ftpd el8/el9 reinstall
-yum -y reinstall pure-ftpd
-cp -a /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf-old-el7
+yum -y install pure-ftpd
+
+\cp -af /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf-old-el8
+\cp -af /root/tools/pureftpd-el8/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
 \cp -af /root/tools/pureftpd-el8/pureftpd.passwd /etc/pure-ftpd/pureftpd.passwd
 \cp -af /root/tools/pureftpd-el8/pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
 chmod 0600 /etc/pure-ftpd/pureftpd.passwd
 pure-pw mkdb
+
+sed -i '/UseFtpUsers/d' /etc/pure-ftpd/pure-ftpd.conf
+
+sed -i 's/# UnixAuthentication  /UnixAuthentication  /' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's/VerboseLog .*/VerboseLog yes/' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's/# PureDB                       \@sysconfigdir\@\/pureftpd.pdb/PureDB                        \/etc\/pure-ftpd\/pureftpd.pdb/' /etc/pure-ftpd/pure-ftpd.conf
+
+sed -i 's/# CreateHomeDir .*/CreateHomeDir               yes/' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's/# TLS .*/TLS                      2/' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's/# PassivePortRange .*/PassivePortRange    30001 50011/' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's/^PassivePortRange    3000 3050/PassivePortRange    30001 50011/' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's|MaxClientsNumber .*|MaxClientsNumber            1000|' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's|MaxClientsPerIP .*|MaxClientsPerIP             500|' /etc/pure-ftpd/pure-ftpd.conf
+sed -i 's|NoAnonymous .*|NoAnonymous                 yes|' /etc/pure-ftpd/pure-ftpd.conf
+
+# fix default file/directory permissions
+sed -i 's/Umask .*/Umask                       137:027/' /etc/pure-ftpd/pure-ftpd.conf
+
+if [[ "$(grep 'TLSCipherSuite' /etc/pure-ftpd/pure-ftpd.conf | grep -o HIGH)" != 'HIGH' ]]; then
+  # echo 'TLSCipherSuite           HIGH:MEDIUM:+TLSv1:!SSLv2:!SSLv3' >> /etc/pure-ftpd/pure-ftpd.conf
+  sed -i 's|# TLSCipherSuite .*|TLSCipherSuite               HIGH|' /etc/pure-ftpd/pure-ftpd.conf
+fi
 
 mkdir -p /etc/ssl/private
 # time openssl dhparam -out /etc/ssl/private/pure-ftpd-dhparams.pem 2048
