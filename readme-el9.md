@@ -100,7 +100,7 @@ ccache -V
 
 cd /usr/local/src
 mv centminmod centminmod.old
-git clone -b 130.00beta01 --depth=1 https://github.com/centminmod/centminmod centminmod
+git clone -b 140.00beta01 --depth=1 https://github.com/centminmod/centminmod centminmod
 cat /etc/centminmod/custom_config.inc
 echo "CENTOS_ALPHATEST='y'" > /etc/centminmod/custom_config.inc
 echo "SELFSIGNEDSSL_ECDSA='y'" >> /etc/centminmod/custom_config.inc
