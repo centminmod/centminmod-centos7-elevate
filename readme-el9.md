@@ -260,7 +260,7 @@ fi
 
 mkdir -p /etc/ssl/private
 # time openssl dhparam -out /etc/ssl/private/pure-ftpd-dhparams.pem 2048
-CNIP=$(curl -s -A "el8 elevated pure-ftpd" https://geoip.centminmod.com/v4 | jq -r '.ip')
+CNIP=$(curl -s -A "el9 elevated pure-ftpd" https://geoip.centminmod.com/v4 | jq -r '.ip')
 openssl req -x509 -days 7300 -sha256 -nodes -subj "/C=US/ST=California/L=Los Angeles/O=Default Company Ltd/CN=$CNIP" -newkey rsa:2048 -keyout /etc/pki/pure-ftpd/pure-ftpd.pem -out /etc/pki/pure-ftpd/pure-ftpd.pem
 chmod 600 /etc/pki/pure-ftpd/*.pem
 openssl x509 -in /etc/pki/pure-ftpd/pure-ftpd.pem -text -noout
@@ -288,8 +288,8 @@ systemctl daemon-reload
 systemctl enable haveged
 systemctl restart haveged
 
-# remove left over el7 and elevate/leapp packages
-rpm -e --nodeps $(rpm -qa | egrep 'el8|elevate|leapp' | sort |xargs)
+# remove left over el9 and elevate/leapp packages
+rpm -e --nodeps $(rpm -qa | egrep 'el9|elevate|leapp' | sort |xargs)
 sudo rm -rf /root/tmp_leapp_py3
 sed -i '/exclude=/d' /etc/yum.conf
 sed -i '/exclude=/d' /etc/dnf/dnf.conf
