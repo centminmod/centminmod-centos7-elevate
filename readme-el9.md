@@ -33,10 +33,10 @@ reboot
 
 ```
 # backup pure-ftpd files
-mkdir -p /root/tools/pureftpd-el8
-cp -a /etc/pure-ftpd/pure-ftpd.conf /root/tools/pureftpd-el8/pure-ftpd.conf
-cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd-el8/pureftpd.passwd
-cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd-el8/pureftpd.pdb
+mkdir -p /root/tools/pureftpd-el9
+cp -a /etc/pure-ftpd/pure-ftpd.conf /root/tools/pureftpd-el9/pure-ftpd.conf
+cp -a /etc/pure-ftpd/pureftpd.passwd /root/tools/pureftpd-el9/pureftpd.passwd
+cp -a /etc/pure-ftpd/pureftpd.pdb /root/tools/pureftpd-el9/pureftpd.pdb
 
 # remove versionlocks
 yum versionlock delete ImageMagick ImageMagick-devel ImageMagick-c++ ImageMagick-c++-devel ImageMagick-libs LibRaw ImageMagick-djvu
@@ -57,7 +57,7 @@ reboot
 
 An example of the output from `leapp upgrade` and reboot process console output can be seen [here](https://github.com/centminmod/centminmod-centos7-elevate/blob/master/el8-el9-leapp-upgrade-console.md)
 
-# Part 2 - Prep AlmaLinux 8
+# Part 2 - Prep AlmaLinux 9
 
 ```
 yum-config-manager --enable crb
@@ -82,7 +82,7 @@ exclude=ImageMagick*
 EOF
 ```
 
-# Part 3 - Prep Centmin Mod for AlmaLinux 8
+# Part 3 - Prep Centmin Mod for AlmaLinux 9
 
 ```
 CCACHE_VER="3.7.12"
@@ -230,9 +230,9 @@ chkconfig memcached on
 yum -y install pure-ftpd
 
 \cp -af /etc/pure-ftpd/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf-old-el8
-\cp -af /root/tools/pureftpd-el8/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
-\cp -af /root/tools/pureftpd-el8/pureftpd.passwd /etc/pure-ftpd/pureftpd.passwd
-\cp -af /root/tools/pureftpd-el8/pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
+\cp -af /root/tools/pureftpd-el9/pure-ftpd.conf /etc/pure-ftpd/pure-ftpd.conf
+\cp -af /root/tools/pureftpd-el9/pureftpd.passwd /etc/pure-ftpd/pureftpd.passwd
+\cp -af /root/tools/pureftpd-el9/pureftpd.pdb /etc/pure-ftpd/pureftpd.pdb
 chmod 0600 /etc/pure-ftpd/pureftpd.passwd
 pure-pw mkdb
 
@@ -512,17 +512,17 @@ Uptime:                 50 min 36 sec
 Threads: 1  Questions: 786  Slow queries: 0  Opens: 219  Open tables: 60  Queries per second avg: 0.258
 ```
 
-# EL8 & Elevate Left Over Packages
+# EL9 & Elevate Left Over Packages
 
-EL8 & Elevate packages
+EL9 & Elevate packages
 
 ```
-rpm -qa | egrep 'el8|elevate|leapp' | sort
+rpm -qa | egrep 'el9|elevate|leapp' | sort
 ```
 
 Remove these packages & verify their removal
 
 ```
-rpm -e --nodeps $(rpm -qa | egrep 'el8|elevate|leapp' | sort |xargs)
-rpm -qa | egrep 'el8|elevate|leapp' | sort
+rpm -e --nodeps $(rpm -qa | egrep 'el9|elevate|leapp' | sort |xargs)
+rpm -qa | egrep 'el9|elevate|leapp' | sort
 ```
